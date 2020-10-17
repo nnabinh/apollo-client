@@ -2,7 +2,7 @@
   "name": "@apollo/client",
   "version": "3.0.2",
   "description": "A fully-featured caching GraphQL client.",
-  "private": true,
+  "private": false,
   "keywords": [
     "apollo",
     "graphql",
@@ -13,14 +13,14 @@
   ],
   "author": "opensource@apollographql.com",
   "license": "MIT",
-  "main": "./dist/apollo-client.cjs.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./apollo-client.cjs.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "sideEffects": [
-    "./dist/cache/inmemory/fixPolyfills.native.js"
+    "./cache/inmemory/fixPolyfills.native.js"
   ],
   "react-native": {
-    "./dist/cache/inmemory/fixPolyfills.js": "./dist/cache/inmemory/fixPolyfills.native.js"
+    "./dist/cache/inmemory/fixPolyfills.js": "./cache/inmemory/fixPolyfills.native.js"
   },
   "repository": {
     "type": "git",
@@ -30,30 +30,6 @@
     "url": "https://github.com/apollographql/apollo-client/issues"
   },
   "homepage": "https://www.apollographql.com",
-  "scripts": {
-    "prebuild": "npm run clean",
-    "build": "tsc",
-    "postbuild": "npm run bundle && npm run prepdist",
-    "watch": "tsc-watch --onSuccess \"npm run postbuild\"",
-    "clean": "rimraf -r dist coverage lib",
-    "test": "jest --config ./config/jest.config.js",
-    "test:debug": "BABEL_ENV=server node --inspect-brk node_modules/.bin/jest --config ./config/jest.config.js --runInBand",
-    "test:ci": "npm run coverage -- --ci --maxWorkers=2 --reporters=default --reporters=jest-junit",
-    "test:watch": "jest --config ./config/jest.config.js --watch",
-    "bundle": "rollup -c ./config/rollup.config.js",
-    "coverage": "jest --config ./config/jest.config.js --verbose --coverage",
-    "bundlesize": "npm run build && bundlesize",
-    "prepdist": "node ./config/prepareDist.js",
-    "predeploy": "npm run build",
-    "deploy": "cd dist && npm publish"
-  },
-  "bundlesize": [
-    {
-      "name": "apollo-client",
-      "path": "./dist/apollo-client.cjs.min.js",
-      "maxSize": "24.5 kB"
-    }
-  ],
   "peerDependencies": {
     "graphql": "^14.0.0 || ^15.0.0",
     "react": "^16.8.0",
